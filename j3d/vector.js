@@ -147,3 +147,15 @@ function j3d_vector_normalize(a, d)
       return d;
    }
 }
+
+export {
+   j3d_vector_add,
+   j3d_vector_blend,
+   j3d_vector_copy,
+   j3d_vector_cross,
+   j3d_vector_dot,
+   j3d_vector_magnitude,
+   j3d_vector_multiply,
+   j3d_vector_normalize,
+   j3d_vector_subtract,
+}

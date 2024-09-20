@@ -73,3 +73,10 @@ function j3d_util_rgbacolor(r, g, b, a)
 
    return "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
 }
+
+export {
+   j3d_util_make2darray,
+   j3d_util_makeobjectarray,
+   j3d_util_rgbacolor,
+   j3d_util_rgbcolor,
+}

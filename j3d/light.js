@@ -16,6 +16,15 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+import { j3d_matrix_invert_simple, j3d_matrix_multiply } from "./matrix";
+import { j3d_util_rgbcolor } from "./util";
+import {
+   j3d_vector_add,
+   j3d_vector_dot,
+   j3d_vector_multiply,
+   j3d_vector_normalize,
+   j3d_vector_subtract
+} from "./vector"
 
 function j3d_light(dir)
 {
@@ -109,3 +118,5 @@ function j3d_light(dir)
       return model;
    };
 }
+
+export { j3d_light }

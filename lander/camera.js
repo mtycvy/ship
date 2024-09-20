@@ -17,6 +17,17 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+import { 
+   j3d_matrix_multiply,
+   j3d_matrix_project,
+   j3d_matrix_translate,
+   j3d_matrix_rotate_x,
+   j3d_matrix_rotate_y,
+   j3d_matrix_scale
+} from "../j3d/matrix";
+import { lander_ship } from "./physics" 
+
+
 var camry = 0;
 
 var lander_camera_rx = 0.4;
@@ -56,4 +67,9 @@ function lander_camera_eye()
    var t1 = j3d_matrix_translate(lander_ship.p[0], lander_ship.p[1], lander_ship.p[2]);
    
    return j3d_matrix_multiply([[0, 0, 0, 1]], j3d_matrix_multiply(j3d_matrix_multiply(j3d_matrix_multiply(t2, rx), ry), t1))[0];
+}
+
+export {
+   lander_camera_eye,
+   lander_camera_matrix
 }

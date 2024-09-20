@@ -17,6 +17,13 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+import { j3d_matrix_identity, j3d_matrix_multiply, j3d_matrix_translate } from "../j3d/matrix";
+import { j3d_model_dehomogenize, j3d_model_multiply } from "../j3d/model"
+import { j3d_util_make2darray } from "../j3d/util";
+import { j3d_vector_cross, j3d_vector_normalize } from "../j3d/vector";
+import { lander_ship } from "./physics" 
+import { lander_clip, lander_sort, lander_light } from "./globals"
+
 const lander_ground_size = 32;
 const lander_ground_mask = lander_ground_size - 1;
 const lander_ground_model_size = 12;
@@ -26,6 +33,8 @@ const lander_ground_pad_x = 14;
 const lander_ground_pad_z = 14;
 
 const lander_ground_range = (lander_ground_model_size - 1) / 2;
+const lander_ground = lander_ground_make(lander_ground_size);
+
 
 function lander_ground_make_pad_alt(alt, x, z)
 {
@@ -240,18 +249,18 @@ function lander_ground_setup_clip(x, z)
    lander_clip.planes[3][3] = (z - lander_ground_range);
 }
 
-function lander_ground_init_map()
+function lander_ground_init_map(map_ctx)
 {
    var scale = 64 / lander_ground_size;
    
    for (var x = 0; x < lander_ground_size; x++)
       for (var z = 0; z < lander_ground_size; z++) {
-         var static = lander_ground.materials[x][z].static;
+         var staticPos = lander_ground.materials[x][z].static;
          
-         if (static == null)
-            static = "rgb(0, 0, 128)";
+         if (staticPos === null)
+            staticPos = "rgb(0, 0, 128)";
          
-         map_ctx.fillStyle = static;
+         map_ctx.fillStyle = staticPos;
          map_ctx.fillRect(x * scale, (lander_ground_size - 1 - z) * scale, scale, scale);
       }
 }
@@ -297,4 +306,17 @@ function lander_ground_draw(cam)
    lander_ground_model3 = j3d_model_dehomogenize(lander_ground_model2, lander_ground_model3);
    
    lander_sort.add_model(lander_ground_model3, 0);
+}
+
+
+export {
+   lander_ground_draw,
+   lander_ground_height,
+   lander_ground_init_map,
+   lander_ground_make,
+   lander_ground_mask,
+   lander_ground_range,
+   lander_ground_size,
+   lander_ground_pad_x,
+   lander_ground_pad_z
 }

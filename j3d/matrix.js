@@ -16,6 +16,8 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+import { j3d_util_make2darray } from "./util";
+
 
 function j3d_matrix_transpose(a, d)
 {
@@ -437,4 +439,18 @@ function j3d_matrix_dehomogenize(a, d)
    d.j3d_length = length;
    
    return d;
+}
+
+export {
+   j3d_matrix_dehomogenize,
+   j3d_matrix_identity,
+   j3d_matrix_invert_simple,
+   j3d_matrix_multiply,
+   j3d_matrix_project,
+   j3d_matrix_scale,
+   j3d_matrix_translate,
+   j3d_matrix_transpose,
+   j3d_matrix_rotate_x,
+   j3d_matrix_rotate_y,
+   j3d_matrix_rotate_z
 }

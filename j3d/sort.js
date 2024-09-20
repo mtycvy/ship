@@ -16,6 +16,7 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+import { j3d_util_makeobjectarray } from "./util";
 
 function j3d_sort(buckets, cells, bounds)
 {
@@ -227,7 +228,7 @@ function j3d_sort(buckets, cells, bounds)
    };
 }
 
-
+export { j3d_sort }
 
 
 

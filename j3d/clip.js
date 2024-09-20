@@ -16,6 +16,9 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+import { j3d_matrix_transpose, j3d_matrix_multiply } from "./matrix";
+import { j3d_vector_blend, j3d_vector_dot } from "./vector";
+import { j3d_util_make2darray, j3d_util_makeobjectarray } from "./util";
 
 function j3d_clip(planes)
 {
@@ -137,3 +140,5 @@ function j3d_clip(planes)
       return mprime;
    }
 }
+
+export { j3d_clip }

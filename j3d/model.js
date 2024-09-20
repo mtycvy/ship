@@ -17,6 +17,16 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+import { j3d_matrix_dehomogenize, j3d_matrix_multiply } from "./matrix";
+import { j3d_util_make2darray } from "./util";
+import { 
+   j3d_vector_add,
+   j3d_vector_cross,
+   j3d_vector_multiply,
+   j3d_vector_normalize,
+   j3d_vector_subtract
+} from "./vector";
+
 function j3d_model_make_normals(model)
 {
    model.normals = new Array(model.faces.length);
@@ -85,4 +95,11 @@ function j3d_model_dehomogenize(model, mprime)
    }
                  
    return mprime;
+}
+
+export {
+   j3d_model_dehomogenize,
+   j3d_model_make_centers,
+   j3d_model_make_normals,
+   j3d_model_multiply
 }

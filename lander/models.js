@@ -17,6 +17,9 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+import { j3d_model_make_centers, j3d_model_make_normals } from "../j3d/model";
+
+
 var lander_material_pink       = {ambient: [0.5, 0.0, 0.5], diffuse: [0.5, 0.0, 0.5], specular: [1.0, 1.0, 1.0], phong: 4.0};
 var lander_material_purple     = {ambient: [0.3, 0.0, 0.5], diffuse: [0.3, 0.0, 0.5], specular: [1.0, 1.0, 1.0], phong: 4.0};
 var lander_material_darkpurple = {ambient: [0.1, 0.0, 0.3], diffuse: [0.2, 0.0, 0.4], specular: [1.0, 1.0, 1.0], phong: 4.0};
@@ -118,3 +121,12 @@ var lander_model_debris = {vertices: [[[    0.0,     0.0,  debris_a,  1.0],
 
 j3d_model_make_normals(lander_model_debris);
 j3d_model_make_centers(lander_model_debris);
+
+export {
+  lander_model_alien1,
+  lander_model_debris,
+  lander_model_ship,
+  alien1_a,
+  alien1_b,
+  alien1_c
+}

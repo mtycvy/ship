@@ -17,11 +17,36 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-const lander_physics_g = [0, 0.003, 0, 0];
+import {
+   j3d_matrix_dehomogenize,
+   j3d_matrix_multiply, 
+   j3d_matrix_rotate_x,
+   j3d_matrix_rotate_y,
+   j3d_matrix_rotate_z,
+   j3d_matrix_translate
+} from "../j3d/matrix";
+import { j3d_model_dehomogenize, j3d_model_multiply } from "../j3d/model";
+import { j3d_util_rgbacolor, j3d_util_rgbcolor } from "../j3d/util";
+import { 
+   j3d_vector_add,
+   j3d_vector_copy,
+   j3d_vector_magnitude,
+   j3d_vector_multiply,
+   j3d_vector_normalize,
+   j3d_vector_subtract
+} from "../j3d/vector";
+import {lander_ground_height, lander_ground_range, lander_ground_size, lander_ground_pad_x, lander_ground_pad_z, lander_ground_mask } from './ground'
+import { lander_model_ship, lander_model_debris, lander_model_alien1, alien1_a, alien1_c } from './models'
+import { lander_clip, lander_sort, lander_light, lander_alien_state_dead, lander_alien_state_flying } from "./globals";
+import { input } from './input'
+
+
+const lander_physics_g = [0, 0.0003, 0, 0];
 const lander_physics_a = [0, -0.01, 0, 0];
 
-var lander_ship;
-var lander_aliens = new Array();
+const lander_ship = new lander_physics_ship([lander_ground_pad_x + 2, lander_ground_height(lander_ground_pad_x + 2, lander_ground_pad_z + 2), lander_ground_pad_z + 2, 1]);
+
+const lander_aliens = new Array();
 
 function lander_physics_adjust(v)
 {
@@ -155,8 +180,7 @@ function lander_physics_debris(_p, _v)
    };
 }
 
-const lander_alien_state_flying = 0;
-const lander_alien_state_dead   = 1;
+
 
 function lander_physics_alien1(_p, a)
 {
@@ -257,7 +281,7 @@ function lander_physics_alien1(_p, a)
 //            state = state_dead;
             
             health = 1.0;
-            alpha = 0.0;
+            this.alpha = 0.0;
             
             j3d_vector_add(p, [16, 0, 16, 0], p);            
          }
@@ -345,15 +369,15 @@ function lander_physics_ship(_p, _v)
          if (fuel > 1.0)
             fuel = 1.0;
             
-         if (lander_input_lmb_pressed)
+         if (input.lander_input_lmb_pressed)
             state = state_flying;
             
          break;
       }   
       case state_flying:
       {
-         r[0] += lander_input_dy / 32;
-         r[1] += lander_input_dx / 32;
+         r[0] += input.lander_input_dy / 32;
+         r[1] += input.lander_input_dx / 32;
          
          if (r[0] < -Math.PI / 2)
             r[0] = -Math.PI / 2;
@@ -362,7 +386,7 @@ function lander_physics_ship(_p, _v)
       
          var mat = matrix(p, r);
                   
-         if (lander_input_lmb_pressed && fuel > 0.0) {
+         if (input.lander_input_lmb_pressed && fuel > 0.0) {
             var a = j3d_matrix_multiply([lander_physics_a], mat)[0];
             
             j3d_vector_add(v, a, v);
@@ -378,7 +402,7 @@ function lander_physics_ship(_p, _v)
                fuel = 0.0;
          }
 
-         if (lander_input_rmb_pressed && t < 0) {
+         if (input.lander_input_rmb_pressed && t < 0) {
             var bullet_p = j3d_matrix_multiply([[0.0, 0.0, 0.3, 1.0]], mat)[0];
             var bullet_v = j3d_matrix_multiply([[0.0, 0.0, 0.2, 0.0]], mat)[0];
       
@@ -426,8 +450,8 @@ function lander_physics_ship(_p, _v)
       }
       }
       
-      lander_input_dx = 0;
-      lander_input_dy = 0;   
+      input.lander_input_dx = 0;
+      input.lander_input_dy = 0;   
             
       return false;
    };
@@ -484,7 +508,6 @@ var lander_physics_objects = [];
 
 function lander_physics_init()
 {
-   lander_ship = new lander_physics_ship([lander_ground_pad_x + 2, lander_ground_height(lander_ground_pad_x + 2, lander_ground_pad_z + 2), lander_ground_pad_z + 2, 1]);
    lander_physics_objects.push(lander_ship);
 
    for (var i = 0; i < 4; i++) {
@@ -514,4 +537,12 @@ function lander_physics_draw(cam)
 
       obj.draw(cam);
    }
+}
+
+export { 
+   lander_physics_draw, 
+   lander_physics_init, 
+   lander_physics_tick,
+   lander_ship,
+   lander_aliens,
 }

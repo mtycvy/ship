@@ -16,6 +16,12 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+import { j3d_util_rgbacolor } from "../j3d/util";
+import { lander_ground_size } from "./ground";
+import { lander_ship, lander_aliens } from "./physics"
+import { lander_alien_state_dead, lander_alien_state_flying } from "./globals";
+
+
 
 const lander_hud_dotsize = 3;
 const lander_hud_dotedge = 64 - lander_hud_dotsize;
@@ -51,7 +57,7 @@ function lander_hud_dot(ctx, x, y)
 
 var lander_hud_health = 1.0;
 
-function lander_hud_draw(ctx)
+function lander_hud_draw(ctx, map)
 {
    var fuel = lander_ship.get_fuel();
    var health = lander_ship.get_health();
@@ -103,3 +109,5 @@ function lander_hud_draw(ctx)
       }
    }
 }
+
+export { lander_hud_draw }
