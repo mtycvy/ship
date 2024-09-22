@@ -51,7 +51,7 @@ function lander_camera_matrix(x, y, z, r_y)
    var p = j3d_matrix_multiply(o, p);
 
    var tf = j3d_matrix_translate(0.5, 0.25, 0);
-   var s1 = j3d_matrix_scale(400, 400, 1);
+   var s1 = j3d_matrix_scale(1024, 768, 1);
 
    var kl = j3d_matrix_multiply(p, tf);
    var kr = j3d_matrix_multiply(kl, s1);
