@@ -74,4 +74,6 @@ const init = () => {
     setTimeout(frame, 0);
 }
 
+setInterval(()=> console.log('fps', 1000/avgtime), 1000)
+
 export { init }

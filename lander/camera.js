@@ -31,7 +31,7 @@ import { lander_ship } from "./physics"
 var camry = 0;
 
 var lander_camera_rx = 0.4;
-var lander_camera_dist = 15;
+var lander_camera_dist = 20;
 
 function lander_camera_matrix(x, y, z, r_y)
 {
